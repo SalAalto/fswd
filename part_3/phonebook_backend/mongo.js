@@ -1,14 +1,17 @@
 const mongoose = require('mongoose')
 
-if (process.argv.length < 3) {
-    console.log('Please provide the password as an argument: node mongo.js <password>')
-    process.exit(1)
-}
+require('dotenv').config()
 
-const password = process.argv[2]
+// if (process.argv.length < 3) {
+//     console.log('Please provide the password as an argument: node mongo.js <password>')
+//     process.exit(1)
+// }
+
+// const password = process.argv[2]
 const personName = process.argv?.[3]
 const phoneNumber = process.argv?.[4]
-const url = `mongodb+srv://jawadzaheer:${password}@cluster0.cx0sl.mongodb.net/?retryWrites=true&w=majority`
+// const url = `mongodb+srv://hsalahhuddin:${password}@cluster0.niapokj.mongodb.net/?retryWrites=true&w=majority`
+const url = process.env.MONGODB_URI
 const phonebookSchema = new mongoose.Schema({
     id: Number,
     name: String,
