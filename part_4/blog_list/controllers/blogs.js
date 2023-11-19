@@ -43,8 +43,16 @@ expressBlogRouter.post('/', async (req, res) => {
 
 // Update a specific blog entry by ID
 expressBlogRouter.put('/:blogId', async (req, res, next) => {
-    const updatedData = req.body;
-    const modifiedBlog = await BlogPost.findByIdAndUpdate(req.params.blogId, updatedData, { new: true });
+    console.log(req.body)
+    const { body: { user: { id: userId }, likes, author, title, url }, params: { id } } = req;
+    const post = {
+        user: userId,
+        likes,
+        author,
+        title,
+        url
+    }
+    const modifiedBlog = await BlogPost.findByIdAndUpdate(req.params.blogId, post, { new: true });
     res.json(modifiedBlog);
 });
 

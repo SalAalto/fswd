@@ -151,18 +151,17 @@ describe('Deleting a single blog resource.', () => {
 
 describe('Upadting a single blog resource.', () => {
     test('succeeds with status code 200 if successfully updated blog.', async () => {
-        console.log(token)
-        const blog = { likes: 70 };
         const blogsAtStart = await helper.blogsInDb()
         const blogToUpdate = blogsAtStart[0]
+        blogToUpdate.likes = 70
         const updatedBlog = await api
             .put(`/api/blogs/${blogToUpdate.id}`)
             .set('Authorization', `Bearer ${token}`)
 
-            .send(blog)
+            .send(blogToUpdate)
             .expect(200)
 
-        expect(updatedBlog.body.likes).toEqual(blog.likes)
+        expect(updatedBlog.body.likes).toEqual(blogToUpdate.likes)
 
     })
 })
